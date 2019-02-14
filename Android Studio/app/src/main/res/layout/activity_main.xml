@@ -7,28 +7,47 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="235dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="email ID"
+        android:inputType="textEmailAddress" />
 
-        <EditText
-            android:inputType="textEmailAddress"
-            android:hint="Enter your email"
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="220dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:inputType="textPassword"
-            android:hint="Enter your password"
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="151dp"
+        android:text="Login" />
 
-    </LinearLayout>
-
-
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/login"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="89dp"
+        android:text="Sign up" />
 </RelativeLayout>
