@@ -1,4 +1,4 @@
-package com.example.sakibmahmud.project_code;
+package com.example.sakibmahmud.project_code.Likes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,15 +8,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.sakibmahmud.project_code.R;
 import com.example.sakibmahmud.project_code.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class SearchActivity extends AppCompatActivity {
+public class LikesActivity extends AppCompatActivity {
 
-    private static final String TAG = "SearchActivity";
+    private static final String TAG = "LikesActivity";
 
-    private Context mContext = SearchActivity.this;
-    private  static final int ACTIVITY_NUM=1;
+    private Context mContext = LikesActivity.this;
+    private  static final int ACTIVITY_NUM=3;
 
 
     @Override
