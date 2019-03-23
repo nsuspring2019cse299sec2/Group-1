@@ -1,4 +1,4 @@
-package com.example.sakibmahmud.project_code;
+package com.example.sakibmahmud.project_code.Search;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,15 +8,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.sakibmahmud.project_code.R;
 import com.example.sakibmahmud.project_code.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class ShareActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
-    private static final String TAG = "ShareActivity";
+    private static final String TAG = "SearchActivity";
 
-    private Context mContext = ShareActivity.this;
-    private  static final int ACTIVITY_NUM=2;
+    private Context mContext = SearchActivity.this;
+    private  static final int ACTIVITY_NUM=1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
