@@ -3,6 +3,7 @@ package com.example.sakibmahmud.project_code.Profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,15 @@ import android.widget.RelativeLayout;
 
 import com.example.sakibmahmud.project_code.R;
 import com.example.sakibmahmud.project_code.Utils.BottomNavigationViewHelper;
+import com.example.sakibmahmud.project_code.Utils.FirebaseMethods;
 import com.example.sakibmahmud.project_code.Utils.SectionsStatePagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -113,5 +122,4 @@ public class AccountSettingsActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
-
 }

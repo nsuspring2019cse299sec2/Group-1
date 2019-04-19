@@ -162,10 +162,10 @@ public class FirebaseMethods {
         for(DataSnapshot ds: dataSnapshot.getChildren()){
 
             // user_account_settings node
-            if(ds.getKey().equals(mContext.getString(R.string.dbname_user_account_settings))){
-                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
+            if(ds.getKey().equals(mContext.getString(R.string.dbname_user_account_settings))) {
+                Log.d(TAG, "getUserAccountSettings: user account settings node datasnapshot: " + ds);
 
-                try{
+                try {
 
                     settings.setDisplay_name(
                             ds.child(userID)
@@ -209,14 +209,15 @@ public class FirebaseMethods {
                     );
 
                     Log.d(TAG, "getUserAccountSettings: retrieved user_account_settings information: " + settings.toString());
-                }catch (NullPointerException e){
-                    Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage() );
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage());
                 }
-
+            }
 
                 // users node
+                Log.d(TAG, "getUserSettings: snapshot key: " + ds.getKey());
                 if(ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
-                    Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
+                    Log.d(TAG, "getUserAccountSettings: users node datasnapshot: " + ds);
 
                     user.setUsername(
                             ds.child(userID)
@@ -241,7 +242,7 @@ public class FirebaseMethods {
 
                     Log.d(TAG, "getUserAccountSettings: retrieved users information: " + user.toString());
                 }
-            }
+
         }
         return new UserSettings(user, settings);
 
