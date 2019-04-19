@@ -42,12 +42,15 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 
     //Firebase Auth
     implementation 'com.google.firebase:firebase-auth:16.0.3'
 
     //Firebase Database
-    implementation 'com.google.firebase:firebase-database:16.0.2'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+
+    implementation 'com.google.android.gms:play-services-flags:16.0.1'
+    implementation 'com.google.android.gms:play-services-basement:16.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

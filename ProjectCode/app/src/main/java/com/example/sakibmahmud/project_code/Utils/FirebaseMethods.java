@@ -27,7 +27,6 @@ public class FirebaseMethods {
     private DatabaseReference myRef;
     private String userID;
 
-
     private Context mContext;
 
     public FirebaseMethods(Context context) {
@@ -46,7 +45,7 @@ public class FirebaseMethods {
 
         User user = new User();
 
-        for (DataSnapshot ds: datasnapshot.getChildren()){
+        for (DataSnapshot ds: datasnapshot.child(userID).getChildren()){
             Log.d(TAG, "checkIfUsernameExists: datasnapshot: " + ds);
 
             user.setUsername(ds.getValue(User.class).getUsername());
@@ -90,6 +89,8 @@ public class FirebaseMethods {
                 });
     }
 
+
+
     public void addNewUser(String email, String username, String description, String website, String profile_photo){
 
         User user = new User( userID,  1,  email,  StringManipulation.condenseUsername(username) );
@@ -115,4 +116,7 @@ public class FirebaseMethods {
                 .setValue(settings);
 
     }
+
 }
+
+

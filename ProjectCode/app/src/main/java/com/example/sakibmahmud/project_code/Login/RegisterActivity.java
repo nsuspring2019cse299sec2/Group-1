@@ -43,14 +43,20 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String append = "";
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Log.d(TAG, "onCreate: started");
+        mContext = RegisterActivity.this;
+        firebaseMethods = new FirebaseMethods(mContext);
+        Log.d(TAG, "onCreate: started.");
+
         initWidgets();
         setupFirebaseAuth();
+        init();
     }
+
     private void init(){
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if(checkInputs(email, username, password)){
                     mProgressBar.setVisibility(View.VISIBLE);
                     loadingPleaseWait.setVisibility(View.VISIBLE);
+
+                    firebaseMethods.registerNewEmail(email, password, username);
                 }
             }
         });
@@ -69,13 +77,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean checkInputs(String email, String username, String password){
         Log.d(TAG, "checkInputs: checking inputs for null values.");
-        if(email.equals("")||username.equals("")||password.equals("")){
-            Toast.makeText(mContext, "All fields must be filled out.",Toast.LENGTH_SHORT).show();
+        if(email.equals("") || username.equals("") || password.equals("")){
+            Toast.makeText(mContext, "All fields must be filled out.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
-
     /**
      * Initialize the activity widgets
      */
@@ -138,8 +145,10 @@ public class RegisterActivity extends AppCompatActivity {
                             username = username + append;
 
                             //add new user to the database
+                            firebaseMethods.addNewUser(email, username, "", "", "");
 
-                            //add new user_account_settings to the database
+                            Toast.makeText(mContext, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -147,6 +156,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }
                     });
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
