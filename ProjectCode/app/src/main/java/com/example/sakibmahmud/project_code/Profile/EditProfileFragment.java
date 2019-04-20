@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sakibmahmud.project_code.Models.User;
 import com.example.sakibmahmud.project_code.Models.UserAccountSettings;
 import com.example.sakibmahmud.project_code.Models.UserSettings;
 import com.example.sakibmahmud.project_code.R;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -38,12 +41,16 @@ public class EditProfileFragment extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
+    private String userID;
 
 
     //EditProfile Fragment widgets
     private EditText mDisplayName, mUsername, mWebsite, mDescription, mEmail, mPhoneNumber;
     private TextView mChangeProfilePhoto;
     private CircleImageView mProfilePhoto;
+
+    //vars
+    private UserSettings mUserSettings;
 
 
 
@@ -75,20 +82,102 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
+        ImageView checkmark = (ImageView) view.findViewById(R.id.saveChanges);
+        checkmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: attempting to save changes.");
+                saveProfileSettings();
+            }
+        });
+
         return view;
     }
+    /**
+     * Retrieves the data contained in the widgets and submits it to the database
+     * Before donig so it chekcs to make sure the username chosen is unqiue
+     */
+    private void saveProfileSettings(){
+        final String displayName = mDisplayName.getText().toString();
+        final String username = mUsername.getText().toString();
+        final String website = mWebsite.getText().toString();
+        final String description = mDescription.getText().toString();
+        final String email = mEmail.getText().toString();
+        final long phoneNumber = Long.parseLong(mPhoneNumber.getText().toString());
 
-//    private void setProfileImage(){
-//        Log.d(TAG, "setProfileImage: setting profile image.");
-//        String imgURL = "https://scontent.fdac18-1.fna.fbcdn.net/v/t1.0-9/52333457_2399136860109931_3149409594426523648_n.jpg?_nc_cat=102&_nc_ht=scontent.fdac18-1.fna&oh=5f18efaacad82c519894278b082b1da9&oe=5D43B4FE";
-//        UniversalImageLoader.setImage(imgURL, mProfilePhoto, null, "");
-//    }
-private void setProfileWidgets(UserSettings userSettings){
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                //case1: the user did not change their username
+                if(!mUserSettings.getUser().getUsername().equals(username)){
+                    checkIfUsernameExists(username);
+                }
+                //case2: the user changed their username therefore we need to check for uniqueness
+                else{
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    /**
+     * Check is @param username already exists in teh database
+     * @param username
+     */
+    private void checkIfUsernameExists(final String username) {
+        Log.d(TAG, "checkIfUsernameExists: Checking if  " + username + " already exists.");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Query query = reference
+                .child(getString(R.string.dbname_users))
+                .orderByChild(getString(R.string.field_username))
+                .equalTo(username);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(!dataSnapshot.exists()){
+                    //add the username
+                    mFirebaseMethods.updateUsername(username);
+                    Toast.makeText(getActivity(), "saved username.", Toast.LENGTH_SHORT).show();
+
+                }
+                for(DataSnapshot singleSnapshot: dataSnapshot.getChildren()){
+                    if (singleSnapshot.exists()){
+                        Log.d(TAG, "checkIfUsernameExists: FOUND A MATCH: " + singleSnapshot.getValue(User.class).getUsername());
+                        Toast.makeText(getActivity(), "That username already exists.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setProfileWidgets(UserSettings userSettings){
     Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.toString());
     Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.getUser().getEmail());
     Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firebase database: " + userSettings.getUser().getPhone_number());
 
 
+    mUserSettings = userSettings;
     //User user = userSettings.getUser();
     UserAccountSettings settings = userSettings.getSettings();
     UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
@@ -114,6 +203,7 @@ private void setProfileWidgets(UserSettings userSettings){
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
+        userID = mAuth.getCurrentUser().getUid();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
