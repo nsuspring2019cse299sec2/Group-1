@@ -1,5 +1,6 @@
 package com.example.sakibmahmud.project_code.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.example.sakibmahmud.project_code.Models.User;
 import com.example.sakibmahmud.project_code.Models.UserAccountSettings;
 import com.example.sakibmahmud.project_code.Models.UserSettings;
 import com.example.sakibmahmud.project_code.R;
+import com.example.sakibmahmud.project_code.Share.ShareActivity;
 import com.example.sakibmahmud.project_code.Utils.FirebaseMethods;
 import com.example.sakibmahmud.project_code.Utils.UniversalImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -290,6 +292,16 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
     mPhoneNumber.setText(String.valueOf(userSettings.getUser().getPhone_number()));
 
 
+        mChangeProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: changing profile photo");
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //268435456
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
+        });
 }
     /*
     ------------------------------------ Firebase ---------------------------------------------

@@ -2,6 +2,7 @@ package com.example.sakibmahmud.project_code.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,7 +40,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private Context mContext;
 
-    private SectionsStatePagerAdapter pagerAdapter;
+    public SectionsStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
 
@@ -71,6 +72,29 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private void getIncomingIntent(){
         Intent intent = getIntent();
 
+        if(intent.hasExtra(getString(R.string.selected_image))
+                || intent.hasExtra(getString(R.string.selected_bitmap))){
+
+            //if there is an imageUrl attached as an extra, then it was chosen from the gallery/photo fragment
+            Log.d(TAG, "getIncomingIntent: New incoming imgUrl");
+            if(intent.getStringExtra(getString(R.string.return_to_fragment)).equals(getString(R.string.edit_profile_fragment))){
+
+                if(intent.hasExtra(getString(R.string.selected_image))){
+                    //set the new profile picture
+                    FirebaseMethods firebaseMethods = new FirebaseMethods(AccountSettingsActivity.this);
+                    firebaseMethods.uploadNewPhoto(getString(R.string.profile_photo), null, 0,
+                            intent.getStringExtra(getString(R.string.selected_image)), null);
+                }
+                else if(intent.hasExtra(getString(R.string.selected_bitmap))){
+                    //set the new profile picture
+                    FirebaseMethods firebaseMethods = new FirebaseMethods(AccountSettingsActivity.this);
+                    firebaseMethods.uploadNewPhoto(getString(R.string.profile_photo), null, 0,
+                            null,(Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap)));
+                }
+
+            }
+        }
+
         if(intent.hasExtra(getString(R.string.calling_activity))){
             Log.d(TAG, "getIncomingIntent: received incoming intent from " + getString(R.string.profile_activity));
             setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.edit_profile_fragment)));
@@ -83,7 +107,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         pagerAdapter.addFragment(new SignOutFragment(), getString(R.string.sign_out_fragment));//fragment 1
     }
 
-    private void setViewPager(int fragmentNumber){
+    public void setViewPager(int fragmentNumber){
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigating to fragment #: " + fragmentNumber);
         mViewPager.setAdapter(pagerAdapter);
