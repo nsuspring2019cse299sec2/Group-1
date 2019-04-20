@@ -12,13 +12,11 @@ import com.example.sakibmahmud.project_code.R;
 import com.example.sakibmahmud.project_code.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class SearchActivity extends AppCompatActivity {
-
+public class SearchActivity extends AppCompatActivity{
     private static final String TAG = "SearchActivity";
+    private static final int ACTIVITY_NUM = 1;
 
     private Context mContext = SearchActivity.this;
-    private  static final int ACTIVITY_NUM=1;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,18 +27,16 @@ public class SearchActivity extends AppCompatActivity {
         setupBottomNavigationView();
     }
 
-
     /**
-     * Bottom Navigation Setup
+     * BottomNavigationView setup
      */
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx)findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-
     }
 }

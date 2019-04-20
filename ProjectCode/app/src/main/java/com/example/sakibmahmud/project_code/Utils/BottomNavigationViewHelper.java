@@ -12,6 +12,7 @@ import com.example.sakibmahmud.project_code.Likes.LikesActivity;
 import com.example.sakibmahmud.project_code.Profile.ProfileActivity;
 import com.example.sakibmahmud.project_code.R;
 import com.example.sakibmahmud.project_code.Search.SearchActivity;
+import com.example.sakibmahmud.project_code.Share.ShareActivity;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class BottomNavigationViewHelper {
@@ -41,7 +42,7 @@ public class BottomNavigationViewHelper {
                         context.startActivity(intent2);
                         break;
                     case R.id.ic_circle:
-                        Intent intent3 = new Intent(context, SearchActivity.class);//ACTIVITY_NUM=2
+                        Intent intent3 = new Intent(context, ShareActivity.class);//ACTIVITY_NUM=2
                         context.startActivity(intent3);
                         break;
                     case R.id.ic_alert:
