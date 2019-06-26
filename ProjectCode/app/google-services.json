@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "644628607335",
+    "firebase_url": "https://cheateat-19140.firebaseio.com",
+    "project_id": "cheateat-19140",
+    "storage_bucket": "cheateat-19140.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644628607335:android:b1417220c8b4c682",
+        "android_client_info": {
+          "package_name": "com.example.sakibmahmud.project_code"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644628607335-5dtjm5st3esosk15hr91ufsccis6sarf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sakibmahmud.project_code",
+            "certificate_hash": "afc67216ff6e10d901ed061824909f20c18bc1b4"
+          }
+        },
+        {
+          "client_id": "644628607335-5nglvang7ngdjspjcumbrr3hgsalu0ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sakibmahmud.project_code",
+            "certificate_hash": "79fa991d20d72435ee1b2d9163d54c91602c458e"
+          }
+        },
+        {
+          "client_id": "644628607335-q8eoj6g94e74c0hak4me3j4utf9v3kb8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC29d1wrOd2A7oWV8FMibFz8K_BjLpmx2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644628607335-q8eoj6g94e74c0hak4me3j4utf9v3kb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
